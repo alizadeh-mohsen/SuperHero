@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SuperHero.API.Data;
-using SuperHero.API.Controllers;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<HeroContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Host.UseSerilog((context, services, configuration) =>
+{
+    configuration.ReadFrom.Configuration(context.Configuration);
+});
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -21,7 +24,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-};
+}
+;
 
 // Configure the HTTP request pipeline.
 
