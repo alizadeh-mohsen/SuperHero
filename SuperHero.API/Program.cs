@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SuperHero.API.Data;
 using Serilog;
+using SuperHero.API.AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(typeof(MappingConfigs).Assembly);
 
 var app = builder.Build();
 

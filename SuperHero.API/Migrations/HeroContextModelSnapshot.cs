@@ -47,6 +47,7 @@ namespace SuperHero.API.Migrations
                         new
                         {
                             Id = "1",
+                            Image = "Supermanflying.png",
                             Level = 3,
                             Name = "SuperMan",
                             Universe = 1
@@ -54,6 +55,7 @@ namespace SuperHero.API.Migrations
                         new
                         {
                             Id = "2",
+                            Image = "Wonder_Woman_(2017_film)_poster.jpg",
                             Level = 3,
                             Name = "WonderWoman",
                             Universe = 1
@@ -61,6 +63,7 @@ namespace SuperHero.API.Migrations
                         new
                         {
                             Id = "3",
+                            Image = "Batman_Arkham_City_Game_Cover.jpg",
                             Level = 0,
                             Name = "Batman",
                             Universe = 1
@@ -68,6 +71,7 @@ namespace SuperHero.API.Migrations
                         new
                         {
                             Id = "4",
+                            Image = "Web_of_Spider-Man_Vol_1_129-1.png",
                             Level = 1,
                             Name = "SpiderMan",
                             Universe = 0
@@ -75,6 +79,7 @@ namespace SuperHero.API.Migrations
                         new
                         {
                             Id = "5",
+                            Image = "Hulk_(circa_2019).png",
                             Level = 2,
                             Name = "The Hulk",
                             Universe = 0
@@ -82,6 +87,7 @@ namespace SuperHero.API.Migrations
                         new
                         {
                             Id = "6",
+                            Image = "Thor_(film)_poster.jpg",
                             Level = 4,
                             Name = "Thor",
                             Universe = 0
@@ -89,6 +95,7 @@ namespace SuperHero.API.Migrations
                         new
                         {
                             Id = "7",
+                            Image = "Galactus_(2018).jpg",
                             Level = 4,
                             Name = "Galactus",
                             Universe = 1
@@ -96,6 +103,7 @@ namespace SuperHero.API.Migrations
                         new
                         {
                             Id = "8",
+                            Image = "Iron_Man_(circa_2018).png",
                             Level = 1,
                             Name = "IronMan",
                             Universe = 0

@@ -1,0 +1,31 @@
+﻿@model SuperHero.MVC.Models.HeroDto
+@{
+    ViewData["Title"] = "Create Hero";
+}
+
+<h2>Create Hero</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+  @*   <div class="form-group">
+        <label asp-for="Level"></label>
+        <select asp-for="Level" class="form-control" asp-items="Html.GetEnumSelectList<SuperHero.MVC.Models.Level>()"></select>
+        <span asp-validation-for="Level" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Universe"></label>
+        <select asp-for="Universe" class="form-control" asp-items="Html.GetEnumSelectList<SuperHero.MVC.Models.Universe>()"></select>
+        <span asp-validation-for="Universe" class="text-danger"></span>
+    </div> *@
+    <div class="form-group">
+        <label asp-for="Image"></label>
+        <input asp-for="Image" class="form-control" />
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</form>

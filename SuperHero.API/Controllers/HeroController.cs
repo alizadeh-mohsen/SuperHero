@@ -1,33 +1,72 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using SuperHero.API.Data;
+using SuperHero.API.Data.Dto;
 
 namespace SuperHero.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HeroController(HeroContext _context) : ControllerBase
+    public class HeroController(HeroContext _context, IMapper _mapper) : ControllerBase
     {
         // GET: api/Hero
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Hero>>> GetHeroes()
+        public async Task<ActionResult<ResponseDto>> GetHeroes()
         {
-            return await _context.Heroes.ToListAsync();
+            try
+            {
+                var heros = await _context.Heroes.ToListAsync();
+
+                var responseDto = new ResponseDto
+                {
+                    Result = _mapper.Map<IEnumerable<HeroDto>>(heros),
+                };
+                return Ok(responseDto);
+            }
+            catch (Exception ex)
+            {
+                return new ResponseDto
+                {
+                    IsSuccess = false,
+                    Message = ex.Message
+                };
+            }
+
         }
+
 
         // GET: api/Hero/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Hero>> GetHero(string id)
+        public async Task<ActionResult<ResponseDto>> GetHero(string id)
         {
-            var hero = await _context.Heroes.FindAsync(id);
-
-            if (hero == null)
+            try
             {
-                return NotFound();
+                var hero = await _context.Heroes.FindAsync(id);
+
+                if (hero == null)
+                {
+                    return NotFound();
+                }
+
+                var responseDto = new ResponseDto
+                {
+                    Result = _mapper.Map<HeroDto>(hero),
+                };
+                return Ok(responseDto);
+            }
+            catch (Exception ex)
+            {
+
+                return new ResponseDto
+                {
+                    IsSuccess = false,
+                    Message = ex.Message
+                };
             }
 
-            return hero;
+
         }
 
         // PUT: api/Hero/5

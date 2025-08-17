@@ -1,0 +1,52 @@
+@model IEnumerable<SuperHero.MVC.Models.HeroDto>
+@{
+    ViewData["Title"] = "Heroes";
+}
+
+<h2>Heroes</h2>
+
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success">@TempData["success"]</div>
+}
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger">@TempData["error"]</div>
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New Hero</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Level</th>
+            <th>Universe</th>
+            <th>Image</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var hero in Model)
+{
+        <tr>
+            <td>@hero.Name</td>
+            <td>@hero.Level</td>
+            <td>@hero.Universe</td>
+            <td>
+                @if (!string.IsNullOrEmpty(hero.Image))
+                {
+                    <img src="@hero.Image" alt="@hero.Name" width="50" />
+                }
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@hero.Id" class="btn btn-info btn-sm">Details</a>
+                <a asp-action="Edit" asp-route-id="@hero.Id" class="btn btn-warning btn-sm">Edit</a>
+                <a asp-action="Delete" asp-route-id="@hero.Id" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Universe</th>
+            <th>Level</th>
+            <th>Image</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var hero in Model)
+        {
+            <tr>
+                <td>@hero.Name</td>
+                <td>@hero.Universe</td>
+                <td>@hero.Level</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(hero.Image))
+                    {
+                        <img src="~/images/@hero.Image" alt="@hero.Name" width="50" />
+                    }
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@hero.Id" class="btn btn-info">Details</a>
+                    <a asp-action="Edit" asp-route-id="@hero.Id" class="btn btn-warning">Edit</a>
+                    <form asp-action="Delete" asp-route-id="@hero.Id" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
