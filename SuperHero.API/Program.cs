@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using SuperHero.API.Data;
 using Serilog;
 using SuperHero.API.AutoMapper;
+using SuperHero.API.Data;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,5 +37,18 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
+ApplyMigrations();
 app.Run();
+void ApplyMigrations()
+{
+
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<HeroContext>();
+        if (dbContext.Database.GetMigrations().Count() > 0)
+        {
+            dbContext.Database.Migrate();
+        }
+    }
+}
+

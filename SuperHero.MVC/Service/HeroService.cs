@@ -5,7 +5,8 @@ namespace SuperHero.MVC.Services
 {
     public class HeroService(IBaseService _baseService) : IHeroService
     {
-        private readonly string _baseApiUrl = "https://localhost:7161/api/hero";
+        //private readonly string _baseApiUrl = "http://localhost:7161/api/hero";
+        private readonly string _baseApiUrl = "http://superhero.api:7161/api/hero";
 
         public async Task<ResponseDto> GetHeroesAsync()
         {
