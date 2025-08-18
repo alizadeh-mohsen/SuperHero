@@ -6,6 +6,8 @@ services:
       dockerfile: SuperHero.API/Dockerfile
     ports:
       - "7161:7161"
+    networks:
+      - app-network
     environment:
       - ASPNETCORE_URLS=http://*:7161;
     depends_on: [superhero.database,superhero.log]
@@ -15,7 +17,9 @@ services:
       context: .
       dockerfile: SuperHero.MVC/Dockerfile
     ports:
-      - "7000:7117"
+      - "7117:7117"
+    networks:
+      - app-network
     environment:
       - ASPNETCORE_URLS=http://*:7117
     depends_on:
@@ -26,6 +30,8 @@ services:
     hostname: superhero.database
     ports:
       - "1401:1433"
+    networks:
+      - app-network
     environment:
       - SA_PASSWORD=Password@1
       - ACCEPT_EULA=Y  
@@ -34,9 +40,31 @@ services:
     image: datalust/seq
     ports:
       - "5000:80"
+    networks:
+      - app-network
     environment:
       - ACCEPT_EULA=Y
       - SEQ_FIRSTRUN_NOAUTHENTICATION=true
     restart: unless-stopped
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    ports:
+      - "44310:44310"
+    depends_on:
+      - superhero.mvc
+    networks:
+      app-network:
+        aliases:
+          - "hero.com"
+          - "api.hero.com"
+    restart: always
+
+networks:
+    app-network:
+      driver: bridge
+  
+  
   
 

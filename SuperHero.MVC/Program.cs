@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.HttpOverrides;
 using SuperHero.MVC.AutoMapper;
 using SuperHero.MVC.Service.IService;
 using SuperHero.MVC.Services;
@@ -14,7 +15,7 @@ builder.Services.AddScoped<IBaseService, BaseService>();
 builder.Services.AddScoped<IHeroService, HeroService>();
 builder.Services.AddAutoMapper(typeof(MappingConfigs).Assembly);
 
-var app = builder.Build();  
+var app = builder.Build();
 
 
 
@@ -27,6 +28,12 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
+
 app.UseRouting();
 
 app.UseAuthorization();

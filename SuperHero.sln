@@ -9,6 +9,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperHero.MVC", "SuperHero.
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nginx", "nginx", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Downloads\1\1\api-cert.conf = ..\..\..\Downloads\1\1\api-cert.conf
+		nginx\api-cert.crt = nginx\api-cert.crt
+		nginx\api-cert.key = nginx\api-cert.key
+		nginx\api-key.pfx = nginx\api-key.pfx
+		nginx\Dockerfile = nginx\Dockerfile
+		nginx\mvc-cert.conf = nginx\mvc-cert.conf
+		nginx\mvc-cert.crt = nginx\mvc-cert.crt
+		nginx\mvc-cert.key = nginx\mvc-cert.key
+		nginx\mvc-key.pfx = nginx\mvc-key.pfx
+		nginx\nginx.conf = nginx\nginx.conf
+		openssl-commands.txt = openssl-commands.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
