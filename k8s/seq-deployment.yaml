@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: seq-deployment
+  namespace: superhero-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: seq-deployment
+  template:
+    metadata:
+      labels:
+        app: seq-deployment
+    spec:
+      containers:
+      - name: seq-deployment
+        image: datalust/seq:latest
+        ports:
+        - containerPort: 5341
+        - containerPort: 80
+        env:
+         - name: ACCEPT_EULA
+           value: "Y"
+         - name: SEQ_FIRSTRUN_NOAUTHENTICATION
+           value: "true"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: seq-service
+  namespace: superhero-namespace
+spec:
+  selector:
+    app: seq-deployment  
+  type: NodePort  
+  ports:
+    - protocol: TCP 
+      port: 80
+      targetPort: 80  
+      nodePort: 31534
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: seq-cluster-service
+  namespace: superhero-namespace
+spec:
+  clusterIP: None # headless service
+  selector:
+    app: seq-deployment
+  ports:
+    - protocol: TCP
+      port: 5341
+      targetPort: 5341

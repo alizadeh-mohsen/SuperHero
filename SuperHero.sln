@@ -24,6 +24,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nginx", "nginx", "{02EA681E
 		openssl-commands.txt = openssl-commands.txt
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{299F532B-CFDE-4528-A1D3-51FAA8BB3C59}"
+	ProjectSection(SolutionItems) = preProject
+		k8s\admin-role.yaml = k8s\admin-role.yaml
+		k8s\admin-user.yaml = k8s\admin-user.yaml
+		k8s\mssql-deployment.yaml = k8s\mssql-deployment.yaml
+		k8s\api-deployment.yaml = k8s\api-deployment.yaml
+		k8s\mvc-deployment.yaml = k8s\mvc-deployment.yaml
+		k8s\namespace.yaml = k8s\namespace.yaml
+		k8s\seq-deployment.yaml = k8s\seq-deployment.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -45,18 +45,18 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 app.UseAuthorization();
 
 app.MapControllers();
+
 ApplyMigrations();
+
 app.Run();
+
 void ApplyMigrations()
 {
-
     using (var scope = app.Services.CreateScope())
     {
         var dbContext = scope.ServiceProvider.GetRequiredService<HeroContext>();
         if (dbContext.Database.GetMigrations().Count() > 0)
-        {
             dbContext.Database.Migrate();
-        }
     }
 }
 

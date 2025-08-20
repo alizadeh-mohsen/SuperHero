@@ -5,18 +5,27 @@ using System.Text.Json;
 
 namespace SuperHero.MVC.Services
 {
-    public class BaseService(IHttpClientFactory _httpClientFactory) : IBaseService
+    public class BaseService : IBaseService
     {
+        private readonly HttpClient _httpClient;
+
+        public BaseService(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
         public async Task<ResponseDto> SendAsync(RequestDto requestDto)
         {
             try
             {
-                var httpClient = _httpClientFactory.CreateClient();
+                //var httpClient = _httpClientFactory.CreateClient();
                 HttpResponseMessage response = null;
 
                 HttpRequestMessage request = new HttpRequestMessage();
                 request.Headers.Add("Accept", "application/json");
-                request.RequestUri = new Uri(requestDto.Url);
+                request.RequestUri = !string.IsNullOrEmpty(requestDto.Url)
+                    ? new Uri(_httpClient.BaseAddress + requestDto.Url)
+                    : new Uri(_httpClient.BaseAddress, requestDto.Url);
+
                 if (requestDto.Data != null)
                 {
                     request.Content = new StringContent(JsonSerializer.Serialize(requestDto.Data),
@@ -35,7 +44,7 @@ namespace SuperHero.MVC.Services
                 };
 
 
-                response = await httpClient.SendAsync(request);
+                response = await _httpClient.SendAsync(request);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var content = await response.Content.ReadAsStringAsync();

@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: database-deployment
+  namespace: superhero-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: database-deployment
+  template:
+    metadata:
+      labels:
+        app: database-deployment
+    spec:
+      containers:
+      - name: database-deployment
+        image: mcr.microsoft.com/mssql/server:2017-latest
+        env:
+         - name: ACCEPT_EULA
+           value: "Y"
+         - name: SA_PASSWORD
+           value: Password@1
+        ports:
+        - containerPort: 1433
+      #   volumeMounts:
+      #   - name: system
+      #     mountPath: /var/opt/database-deployment
+      #   - name: user
+      #     mountPath: /var/opt/sqlserver/data
+      #   - name: log
+      #     mountPath: /var/opt/sqlserver/log
+      # tolerations:
+      # - key: "node.kubernetes.io/unreachable"
+      #   operator: "Exists"
+      #   effect: "NoExecute"
+      #   tolerationSeconds: 10
+      # - key: "node.kubernetes.io/not-ready"
+      #   operator: "Exists"
+      #   effect: "NoExecute"
+      #   tolerationSeconds: 10
+      # volumes:
+      # - name: system
+      #   persistentVolumeClaim:
+      #     claimName: database-deployment-system
+      # - name: user
+      #   persistentVolumeClaim:
+      #     claimName: database-deployment-data
+      # - name: log
+      #   persistentVolumeClaim:
+      #     claimName: database-deployment-log
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: database-service
+  namespace: superhero-namespace
+spec:
+  selector:
+    app: database-deployment
+  ports:
+    - protocol: TCP
+      port: 1434
+      targetPort: 1433
+      nodePort: 31433
+  type: NodePort

@@ -7,14 +7,14 @@ namespace SuperHero.MVC.Services
     {
         //private readonly string _baseApiUrl = "http://localhost:7161/api/hero";
         //private readonly string _baseApiUrl = "http://superhero.api:7161/api/hero";
-        private readonly string _baseApiUrl = "https://api.hero.com:44310/api/hero";
+        //private readonly string _baseApiUrl = "https://api.hero.com:44310/api/hero";
 
         public async Task<ResponseDto> GetHeroesAsync()
         {
             return await _baseService.SendAsync(new RequestDto
             {
                 ApiType = ApiTypeEnum.GET,
-                Url = $"{_baseApiUrl}"
+                //Url = $"{_baseApiUrl}"
             });
         }
 
@@ -23,7 +23,7 @@ namespace SuperHero.MVC.Services
             return await _baseService.SendAsync(new RequestDto
             {
                 ApiType = ApiTypeEnum.GET,
-                Url = $"{_baseApiUrl}/{id}"
+                Url = $"/{id}"
             });
         }
 
@@ -32,7 +32,7 @@ namespace SuperHero.MVC.Services
             return await _baseService.SendAsync(new RequestDto
             {
                 ApiType = ApiTypeEnum.POST,
-                Url = $"{_baseApiUrl}",
+                //Url = $"{_baseApiUrl}",
                 Data = HeroDto
             });
         }
@@ -42,7 +42,7 @@ namespace SuperHero.MVC.Services
             return await _baseService.SendAsync(new RequestDto
             {
                 ApiType = ApiTypeEnum.DELETE,
-                Url = $"{_baseApiUrl}/{id}"
+                Url = $"/{id}"
             });
         }
         public async Task<ResponseDto> UpdateHeroAsync(HeroDto HeroDto)
@@ -50,7 +50,7 @@ namespace SuperHero.MVC.Services
             return await _baseService.SendAsync(new RequestDto
             {
                 ApiType = ApiTypeEnum.PUT,
-                Url = $"{_baseApiUrl}/{HeroDto.Id}",
+                Url = $"/{HeroDto.Id}",
                 Data = HeroDto
             });
         }

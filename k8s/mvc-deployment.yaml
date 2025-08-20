@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui-deployment
+  namespace: superhero-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ui-deployment
+  template:
+    metadata:
+      labels:
+        app: ui-deployment
+    spec:
+      containers:
+      - name: ui-deployment
+        image: kelarens/superhero-ui:1.0.1
+        ports:
+        - containerPort: 80
+        env:
+        - name: ASPNETCORE_URLS
+          value: http://*:80
+        - name: BaseApiUrl
+          value: http://api-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ui-service
+  namespace: superhero-namespace
+spec:
+  selector:
+    app: ui-deployment
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 32002
+  type: NodePort
