@@ -35,6 +35,14 @@ services:
     environment:
       - SA_PASSWORD=Password@1
       - ACCEPT_EULA=Y  
+      # - MSSQL_DATA_DIR=/var/opt/mssql/data
+      # - MSSQL_LOG_DIR=/var/opt/mssql/log
+      # - MSSQL_BACKUP_DIR=/var/opt/mssql/backup
+    # volumes:
+    #   - sqlsystem:/var/opt/mssql/system
+    #   - sqldata:/var/opt/mssql/data
+    #   - sqllog:/var/opt/mssql/log
+    #   - sqlbackup:/var/opt/mssql/backup
     restart: unless-stopped
   superhero.log:
     image: datalust/seq
@@ -64,6 +72,15 @@ services:
 networks:
     app-network:
       driver: bridge
+# volumes:
+#   sqlsystem:
+#     driver: local
+#   sqldata:
+#     driver: local
+#   sqllog:
+#     driver: local
+#   sqlbackup:
+#     driver: local
   
   
   
