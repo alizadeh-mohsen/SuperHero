@@ -1,4 +1,5 @@
-﻿using SuperHero.MVC.Models;
+﻿using Serilog;
+using SuperHero.MVC.Models;
 using System.Net;
 using System.Text;
 using System.Text.Json;
@@ -17,11 +18,14 @@ namespace SuperHero.MVC.Services
         {
             try
             {
+                Log.Warning(">>>>>>>>>> MVC: inside Base service");
+
                 //var httpClient = _httpClientFactory.CreateClient();
                 HttpResponseMessage response = null;
 
                 HttpRequestMessage request = new HttpRequestMessage();
                 request.Headers.Add("Accept", "application/json");
+
                 request.RequestUri = !string.IsNullOrEmpty(requestDto.Url)
                     ? new Uri(_httpClient.BaseAddress + requestDto.Url)
                     : new Uri(_httpClient.BaseAddress, requestDto.Url);
@@ -43,6 +47,7 @@ namespace SuperHero.MVC.Services
                     _ => throw new NotImplementedException()
                 };
 
+                Log.Warning($">>>>>>>>>> MVC:  requestDto.Url: {request.RequestUri}");
 
                 response = await _httpClient.SendAsync(request);
                 if (response.StatusCode == HttpStatusCode.OK)
@@ -52,6 +57,9 @@ namespace SuperHero.MVC.Services
                     {
                         PropertyNameCaseInsensitive = true
                     });
+
+                    Log.Warning($">>>>>>>>>> MVC:  ResponseDto: {response.StatusCode}{response.ReasonPhrase}");
+
                     return responseDto;
                 }
 
@@ -65,6 +73,8 @@ namespace SuperHero.MVC.Services
             }
             catch (Exception ex)
             {
+                Log.Warning($">>>>>>>>>> MVC:  ERROR : {ex.Message}");
+
                 return new ResponseDto
                 {
                     IsSuccess = false,

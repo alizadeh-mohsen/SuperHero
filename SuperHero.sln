@@ -25,14 +25,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nginx", "nginx", "{02EA681E
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{299F532B-CFDE-4528-A1D3-51FAA8BB3C59}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
 	ProjectSection(SolutionItems) = preProject
-		k8s\admin-role.yaml = k8s\admin-role.yaml
-		k8s\admin-user.yaml = k8s\admin-user.yaml
-		k8s\mssql-deployment.yaml = k8s\mssql-deployment.yaml
-		k8s\api-deployment.yaml = k8s\api-deployment.yaml
-		k8s\mvc-deployment.yaml = k8s\mvc-deployment.yaml
-		k8s\namespace.yaml = k8s\namespace.yaml
-		k8s\seq-deployment.yaml = k8s\seq-deployment.yaml
+		Readme.txt = Readme.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dashboard", "dashboard", "{7D177C21-BD7D-4EC5-A385-873D30E2F887}"
+	ProjectSection(SolutionItems) = preProject
+		k8s\dashboard\admin-role.yaml = k8s\dashboard\admin-role.yaml
+		k8s\dashboard\admin-user.yaml = k8s\dashboard\admin-user.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deployments", "deployments", "{33597E2A-8D74-40FE-B8F2-63D3C20E9850}"
+	ProjectSection(SolutionItems) = preProject
+		k8s\deployments\api-deployment.yaml = k8s\deployments\api-deployment.yaml
+		k8s\deployments\mssql-deployment.yaml = k8s\deployments\mssql-deployment.yaml
+		k8s\deployments\mvc-deployment.yaml = k8s\deployments\mvc-deployment.yaml
+		k8s\deployments\namespace.yaml = k8s\deployments\namespace.yaml
+		k8s\deployments\seq-deployment.yaml = k8s\deployments\seq-deployment.yaml
 	EndProjectSection
 EndProject
 Global
@@ -56,6 +67,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7D177C21-BD7D-4EC5-A385-873D30E2F887} = {299F532B-CFDE-4528-A1D3-51FAA8BB3C59}
+		{33597E2A-8D74-40FE-B8F2-63D3C20E9850} = {299F532B-CFDE-4528-A1D3-51FAA8BB3C59}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ABAF9327-C938-44DE-B5D0-8AC8949677A2}

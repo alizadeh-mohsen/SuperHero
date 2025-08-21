@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
     name: api-deployment
-    namespace: superhero-namespace
+    namespace: superhero
 spec:
   replicas: 1
   template:
@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: api-deployment
-        image: kelarens/superhero-api:1.0.1
+        image: kelarens/superhero-api:2.0.0
         ports:
         - containerPort: 80
         env:
@@ -31,7 +31,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: api-service
-  namespace: superhero-namespace
+  namespace: superhero
 spec:
   type: NodePort
   ports:
@@ -45,7 +45,7 @@ spec:
 # kind: HorizontalPodAutoscaler
 # metadata:
 #   name: api-deployment-scaling
-#   namespace: superhero-namespace
+#   namespace: superhero
 # spec:
 #   scaleTargetRef:
 #     apiVersion: apps/v1
@@ -66,21 +66,3 @@ spec:
 #       target:
 #         type: AverageValue
 #         averageValue: 100Mi
----
-apiVersion: batch/v1
-kind: Job
-metadata:
-  name: db-seed-job
-  namespace: superhero-namespace
-spec:
-  template:
-    spec:
-      containers:
-      - name: db-seed
-        image: kelarens/superhero-db-seed:1.0.0
-        env:
-        - name: ConnectionStrings__DefaultConnection
-          value: Server=database-service,1434;Database=superherodb;Trusted_Connection=false;MultipleActiveResultSets=true;Encrypt=false;user id=sa;password=Password@1;
-        command: ["dotnet", "SuperHero.Seed.dll"]
-      restartPolicy: Never
-  backoffLimit: 1

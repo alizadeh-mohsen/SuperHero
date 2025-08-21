@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: seq-deployment
-  namespace: superhero-namespace
+  namespace: superhero
 spec:
   replicas: 1
   selector:
@@ -29,7 +29,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: seq-service
-  namespace: superhero-namespace
+  namespace: superhero
 spec:
   selector:
     app: seq-deployment  
@@ -44,7 +44,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: seq-cluster-service
-  namespace: superhero-namespace
+  namespace: superhero
 spec:
   clusterIP: None # headless service
   selector:

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Serilog;
 using SuperHero.MVC.Models;
 using SuperHero.MVC.Service.IService;
 
@@ -9,6 +10,7 @@ namespace SuperHero.MVC.Controllers
     {
         public async Task<IActionResult> Index()
         {
+            Log.Warning(">>>>>>>>>> MVC: Stared fetching all heroes from the API");
             var model = new List<HeroDto>();
             var responseDto = await _heroService.GetHeroesAsync();
             if (responseDto.IsSuccess)

@@ -1,4 +1,5 @@
-﻿using SuperHero.MVC.Models;
+﻿using Serilog;
+using SuperHero.MVC.Models;
 using SuperHero.MVC.Service.IService;
 
 namespace SuperHero.MVC.Services
@@ -8,22 +9,26 @@ namespace SuperHero.MVC.Services
         //private readonly string _baseApiUrl = "http://localhost:7161/api/hero";
         //private readonly string _baseApiUrl = "http://superhero.api:7161/api/hero";
         //private readonly string _baseApiUrl = "https://api.hero.com:44310/api/hero";
-
+        private readonly string url = "api/hero";
         public async Task<ResponseDto> GetHeroesAsync()
         {
+            Log.Warning(">>>>>>>>>> MVC: inside Service");
+
             return await _baseService.SendAsync(new RequestDto
             {
                 ApiType = ApiTypeEnum.GET,
-                //Url = $"{_baseApiUrl}"
+                Url = $"{url}"
             });
         }
 
         public async Task<ResponseDto> GetHeroAsync(int id)
         {
+            Log.Warning(">>>>>>>>>> MVC: inside Service");
+            
             return await _baseService.SendAsync(new RequestDto
             {
                 ApiType = ApiTypeEnum.GET,
-                Url = $"/{id}"
+                Url = $"{url}/{id}"
             });
         }
 
@@ -32,7 +37,7 @@ namespace SuperHero.MVC.Services
             return await _baseService.SendAsync(new RequestDto
             {
                 ApiType = ApiTypeEnum.POST,
-                //Url = $"{_baseApiUrl}",
+                Url = $"{url}",
                 Data = HeroDto
             });
         }
@@ -42,7 +47,7 @@ namespace SuperHero.MVC.Services
             return await _baseService.SendAsync(new RequestDto
             {
                 ApiType = ApiTypeEnum.DELETE,
-                Url = $"/{id}"
+                Url = $"{url}/{id}"
             });
         }
         public async Task<ResponseDto> UpdateHeroAsync(HeroDto HeroDto)
@@ -50,7 +55,7 @@ namespace SuperHero.MVC.Services
             return await _baseService.SendAsync(new RequestDto
             {
                 ApiType = ApiTypeEnum.PUT,
-                Url = $"/{HeroDto.Id}",
+                Url = $"{url}/{HeroDto.Id}",
                 Data = HeroDto
             });
         }

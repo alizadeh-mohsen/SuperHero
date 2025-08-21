@@ -17,25 +17,28 @@ namespace SuperHero.API.Controllers
         {
             try
             {
+                Log.Warning($">>>>>>>>>> API: getting hero list");
                 var heros = await _context.Heroes.ToListAsync();
+                Log.Warning(">>>>>>>>>> API Fetched {Count} heroes from the database", heros.Count);
 
                 var responseDto = new ResponseDto
                 {
                     Result = _mapper.Map<IEnumerable<HeroDto>>(heros),
                 };
+
                 return Ok(responseDto);
             }
             catch (Exception ex)
             {
+                Log.Warning($">>>>>>>>>> API ERROR {ex.Message}");
+
                 return new ResponseDto
                 {
                     IsSuccess = false,
                     Message = ex.Message
                 };
             }
-
         }
-
 
         // GET: api/Hero/5
         [HttpGet("{id}")]
@@ -43,7 +46,9 @@ namespace SuperHero.API.Controllers
         {
             try
             {
+                Log.Warning($">>>>>>>>>> API: Getting super hero with id {id}");
                 var hero = await _context.Heroes.FindAsync(id);
+                Log.Warning($">>>>>>>>>> API Fetched {hero.Name} from the database");
 
                 if (hero == null)
                 {
@@ -58,6 +63,7 @@ namespace SuperHero.API.Controllers
             }
             catch (Exception ex)
             {
+                Log.Warning($">>>>>>>>>> API ERROR {ex.Message}");
 
                 return new ResponseDto
                 {
@@ -65,8 +71,6 @@ namespace SuperHero.API.Controllers
                     Message = ex.Message
                 };
             }
-
-
         }
 
         // PUT: api/Hero/5

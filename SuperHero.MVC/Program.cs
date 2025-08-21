@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.HttpOverrides;
+using Serilog;
 using SuperHero.MVC.AutoMapper;
 using SuperHero.MVC.Service.IService;
 using SuperHero.MVC.Services;
@@ -9,11 +10,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Host.UseSerilog((context, services, configuration) =>
+{
+    configuration.ReadFrom.Configuration(context.Configuration);
+}); 
 builder.Services.AddHttpClient();
 builder.Services.AddScoped(sp=>new HttpClient
 {
     BaseAddress = new Uri(builder.Configuration.GetValue<string>("BaseApiUrl"))
 });
+
 
 builder.Services.AddScoped<IBaseService, BaseService>();
 builder.Services.AddScoped<IHeroService, HeroService>();
