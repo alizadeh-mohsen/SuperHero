@@ -18,7 +18,10 @@ spec:
         - containerPort: 80
         env:
         - name: ConnectionStrings__DefaultConnection
-          value: Server=database-service,1434;Database=superherodb;Trusted_Connection=false;MultipleActiveResultSets=true;Encrypt=false;user id=sa;password=Password@1;
+          valueFrom:
+            secretKeyRef:
+              name: api-secrets
+              key: ConnectionStrings__DefaultConnection
         - name: ASPNETCORE_URLS
           value: http://*:80
         - name: Serilog__WriteTo__1__Args__serverUrl
@@ -40,6 +43,15 @@ spec:
     nodePort: 32001
   selector:
     app: api-deployment
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: api-secrets
+  namespace: superhero
+type: Opaque
+data:
+  ConnectionStrings__DefaultConnection: U2VydmVyPWRhdGFiYXNlLXNlcnZpY2UsMTQzNDtEYXRhYmFzZT1zdXBlcmhlcm9kYjtUcnVzdGVkX0Nvbm5lY3Rpb249ZmFsc2U7TXVsdGlwbGVBY3RpdmVSZXN1bHRTZXRzPXRydWU7RW5jcnlwdD1mYWxzZTt1c2VyIGlkPXNhO3Bhc3N3b3JkPVBhc3N3b3JkQDE7
 # ---
 # apiVersion: autoscaling/v2
 # kind: HorizontalPodAutoscaler
